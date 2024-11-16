@@ -99,7 +99,7 @@ public class GuessTheNumber {
             //判断 TODO
             if (eingabe != target && getVersuch() == max_versuch) {
                 System.out.println("Sorry, you've used all attempts. The correct number was " + target + ".");
-                System.out.println("You are leaving with " + getPoint() + " points!");
+                //System.out.println("You are leaving with " + getPoint() + " points!");
                 leben--;
                 if (leben == 0 || getPoint() < 0) {
                     System.out.println("Game over! You are out of lives.");
