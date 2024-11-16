@@ -115,16 +115,19 @@ public class GuessTheNumber {
                 System.out.println("Congrats! You guessed the correct number.");
                 flag = false;
                 int currentPoint = getPoint();
-                point = switch (getSchwierigkeit()) {
-                    case 1, 2 -> currentPoint + 200;
-                    case 3 -> currentPoint + 500;
+                // 更新积分
+                point += switch (getSchwierigkeit()) {
+                    case 1, 2 -> 200;
+                    case 3 -> 500;
                     default -> 0;
                 };
                 setPoint(point);
-                leben = switch (getSchwierigkeit()) {
-                    case 2 -> leben + 1;
-                    case 3 -> leben + 3;
-                    default -> getLeben();
+
+                // 更新生命值
+                leben += switch (getSchwierigkeit()) {
+                    case 2 -> 1;
+                    case 3 -> 3;
+                    default -> 0;
                 };
                 setLeben(leben);
                 System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
