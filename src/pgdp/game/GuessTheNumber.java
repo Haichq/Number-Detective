@@ -29,6 +29,10 @@ public class GuessTheNumber {
         GuessTheNumber.point = point;
     }
 
+    public static void setLeben(int leben) {
+        GuessTheNumber.leben = leben;
+    }
+
     public void guessTheNumber() {
         System.out.println("Hello, Number Detective!");
         // einen Schwierigkeitsgrad auszuwählen:
@@ -42,7 +46,7 @@ public class GuessTheNumber {
         while (schwierigkeit != 4) {
             //init
             versuch = 1;
-            Spielablauf();
+            Spielablauf(schwierigkeit);
             //printMenu();
             schwierigkeit = scanner.nextInt();
         }
@@ -59,7 +63,8 @@ public class GuessTheNumber {
         System.out.println("You are leaving with " + getPoint() + " points!");
     }
 
-    private void Spielablauf() {
+    private void Spielablauf(int schwierigkeit) {
+
         boolean flag = true;
         int max_versuch = switch (schwierigkeit) {
             case 1 -> 8;
@@ -82,33 +87,20 @@ public class GuessTheNumber {
             } else { //eingabe == gesuchte Zahl
                 System.out.println("Congrats! You guessed the correct number.");
                 flag = false;
+                int currentPoint = getPoint();
                 point = switch (schwierigkeit) {
-                    case 1 -> {
-                        point = point + 200;
-                        setPoint(point);
-                        yield point;
-                    }
-                    case 2 -> {
-                        point += 200;
-                        yield point;
-                    }
-                    case 3 -> {
-                        point += 500;
-                        yield point; // 返回最终值
-                    }
+                    case 1, 2 -> currentPoint + 200;
+                    case 3 -> currentPoint + 500;
                     default -> 0;
                 };
+                setPoint(point);
+
                 leben = switch (schwierigkeit) {
-                    case 2 -> {
-                        leben++;
-                        yield leben;
-                    }
-                    case 3 -> {
-                        leben += 3;
-                        yield leben;
-                    }
+                    case 2 -> leben + 1;
+                    case 3 -> leben + 3;
                     default -> getLeben();
                 };
+                setLeben(leben);
                 System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 break;
             }
@@ -178,8 +170,7 @@ Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
     }
 
     public static void main(String[] args) {
-        //RandomNumberGenerator.getGenerator(1304);
-        //RandomNumberGenerator.getGenerator().generate(100);
+        RandomNumberGenerator.getGenerator(1304);
 
         System.out.println(result());
         new GuessTheNumber().guessTheNumber();
