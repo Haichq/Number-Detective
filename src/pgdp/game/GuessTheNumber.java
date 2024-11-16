@@ -149,6 +149,7 @@ public class GuessTheNumber {
         }
         if (buyanswer == 1) {
             point -= 600;
+            setPoint(point);
             if (result() % 2 == 0) {
                 System.out.println("The number is even!");
             } else {
