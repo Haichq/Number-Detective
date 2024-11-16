@@ -58,25 +58,28 @@ public class GuessTheNumber {
             default -> -1;
         };
 
-        while (getSchwierigkeit() != 4 && getLeben()>0) {
+        while (getSchwierigkeit() != 4) {
             versuch = 1; // 初始化尝试次数
             cache = -1;
             Spielablauf(); // 调用逻辑
 
             // 再次显示菜单并读取用户选择
-            printMenu();
+            if (getLeben()>0){
+                printMenu();
 
-            input = scanner.nextInt();
-            while (input < 1 || input > 4) {
-                System.out.println("This was not a valid choice, please try again.");
                 input = scanner.nextInt();
+                while (input < 1 || input > 4) {
+                    System.out.println("This was not a valid choice, please try again.");
+                    input = scanner.nextInt();
+                }
+                setSchwierigkeit(input); // 更新难度
+                max_versuch = switch (getSchwierigkeit()) {
+                    case 1 -> 8;
+                    case 2, 3 -> 10;
+                    default -> -1;
+                };
             }
-            setSchwierigkeit(input); // 更新难度
-            max_versuch = switch (getSchwierigkeit()) {
-                case 1 -> 8;
-                case 2, 3 -> 10;
-                default -> -1;
-            };
+
         }
 
         /*
