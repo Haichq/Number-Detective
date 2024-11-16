@@ -60,11 +60,12 @@ public class GuessTheNumber {
 
         while (getSchwierigkeit() != 4) {
             versuch = 1; // 初始化尝试次数
+            cache = -1;
             Spielablauf(); // 调用逻辑
 
             // 再次显示菜单并读取用户选择
             printMenu();
-            cache = -1;
+
             input = scanner.nextInt();
             while (input < 1 || input > 4) {
                 System.out.println("This was not a valid choice, please try again.");
