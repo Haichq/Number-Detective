@@ -64,7 +64,7 @@ public class GuessTheNumber {
             Spielablauf(); // 调用逻辑
 
             // 再次显示菜单并读取用户选择
-            if (getLeben()>0){
+            if (getLeben() != 0) {
                 printMenu();
 
                 input = scanner.nextInt();
