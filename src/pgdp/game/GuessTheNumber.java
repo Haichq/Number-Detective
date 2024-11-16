@@ -96,11 +96,10 @@ public class GuessTheNumber {
                 System.out.println("Sorry, you've used all attempts. The correct number was " + result() + ".");
                 System.out.println("You are leaving with " + getPoint() + " points!");
                 leben--;
-                if (leben == 0) {
+                if (leben == 0 || getPoint()<0) {
                     System.out.println("Game over! You are out of lives.");
                 } else {
                     System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
-
                 }
                 break;
             }
