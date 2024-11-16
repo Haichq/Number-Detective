@@ -11,6 +11,7 @@ public class GuessTheNumber {
     static int point = 0;
     Scanner scanner = new Scanner(System.in);
     static int schwierigkeit;
+    static int cachedResult = -1;
 
     public static int getLeben() {
         return leben;
@@ -22,6 +23,10 @@ public class GuessTheNumber {
 
     public static int getPoint() {
         return point;
+    }
+
+    public static void setPoint(int point) {
+        GuessTheNumber.point = point;
     }
 
     public void guessTheNumber() {
@@ -69,6 +74,7 @@ public class GuessTheNumber {
             //判断 TODO
             if (eingabe < result()) {
                 System.out.println("The number is higher.");
+                System.out.println(result());
                 versuch++;
             } else if (eingabe > result()) {
                 System.out.println("The number is lower.");
@@ -79,6 +85,7 @@ public class GuessTheNumber {
                 point = switch (schwierigkeit) {
                     case 1 -> {
                         point = point + 200;
+                        setPoint(point);
                         yield point;
                     }
                     case 2 -> {
@@ -153,9 +160,12 @@ Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
     }
 
     private static int result() {
-        return RandomNumberGenerator.getGenerator().generate(100);
+        // 用于缓存结果
+        if (cachedResult == -1) { // 如果尚未生成结果
+            cachedResult = RandomNumberGenerator.getGenerator().generate(100);
+        }
+        return cachedResult;
     }
-
 
     // <==================================== HELPER METHODS ====================================>
 
@@ -168,8 +178,10 @@ Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
     }
 
     public static void main(String[] args) {
-        RandomNumberGenerator.getGenerator(1304);
+        //RandomNumberGenerator.getGenerator(1304);
         //RandomNumberGenerator.getGenerator().generate(100);
+
+        System.out.println(result());
         new GuessTheNumber().guessTheNumber();
 
     }
