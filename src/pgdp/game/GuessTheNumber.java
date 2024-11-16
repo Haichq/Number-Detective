@@ -154,10 +154,10 @@ Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
         }
         if (buyanswer == 1) {
             point -= 600;
-            if (result() % 3 == 0) {
-                System.out.println("The number is odd!");
-            } else {
+            if (result() % 2 == 0) {
                 System.out.println("The number is even!");
+            } else {
+                System.out.println("The number is odd!");
             }
         }
     }
