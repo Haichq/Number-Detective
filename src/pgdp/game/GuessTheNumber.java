@@ -89,25 +89,26 @@ public class GuessTheNumber {
 
     private void Spielablauf() {
         boolean flag = true;
+        int target = result();
         while (flag) {
-            System.out.println("(" + getVersuch() + "/" +max_versuch +") Enter your guess:");
+            System.out.println("(" + getVersuch() + "/" + max_versuch + ") Enter your guess:");
             int eingabe = scanner.nextInt();
             //判断 TODO
-            if (eingabe != result() && getVersuch() == max_versuch) {
-                System.out.println("Sorry, you've used all attempts. The correct number was " + result() + ".");
+            if (eingabe != target && getVersuch() == max_versuch) {
+                System.out.println("Sorry, you've used all attempts. The correct number was " + target + ".");
                 System.out.println("You are leaving with " + getPoint() + " points!");
                 leben--;
-                if (leben == 0 || getPoint()<0) {
+                if (leben == 0 || getPoint() < 0) {
                     System.out.println("Game over! You are out of lives.");
                 } else {
                     System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 }
                 break;
             }
-            if (eingabe < result()) {
+            if (eingabe < target) {
                 System.out.println("The number is higher.");
                 versuch++;
-            } else if (eingabe > result()) {
+            } else if (eingabe > target) {
                 System.out.println("The number is lower.");
                 versuch++;
             } else { //eingabe == gesuchte Zahl
@@ -129,17 +130,8 @@ public class GuessTheNumber {
                 System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 break;
             }
-            if (versuch == max_versuch) {
-                if (getPoint() >= 600) {
-                    lastTry(); // 处理最后一次尝试
-                } else {
-                    System.out.println("Sorry, you've used all attempts. The correct number was " + result() + ".");
-                    leben--;
-                    if (leben <= 0) {
-                        System.out.println("Game over! You are out of lives.");
-                        break;
-                    }
-                }
+            if (versuch == max_versuch && getPoint() > 600) {
+                lastTry();
             }
         }
     }
