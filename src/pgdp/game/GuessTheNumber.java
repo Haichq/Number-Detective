@@ -33,9 +33,16 @@ public class GuessTheNumber {
         GuessTheNumber.leben = leben;
     }
 
+    public static int getSchwierigkeit() {
+        return schwierigkeit;
+    }
+
+    public static void setSchwierigkeit(int schwierigkeit) {
+        GuessTheNumber.schwierigkeit = schwierigkeit;
+    }
+
     public void guessTheNumber() {
         System.out.println("Hello, Number Detective!");
-        // einen Schwierigkeitsgrad auszuwählen:
         System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
         printMenu();
         int schwierigkeit = scanner.nextInt();
@@ -47,8 +54,10 @@ public class GuessTheNumber {
             //init
             versuch = 1;
             Spielablauf(schwierigkeit);
-            //printMenu();
+            printMenu();
             schwierigkeit = scanner.nextInt();
+            // new round:
+            result();
         }
 
         /*
@@ -152,9 +161,15 @@ Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
     }
 
     private static int result() {
-        // 用于缓存结果
+
         if (cachedResult == -1) { // 如果尚未生成结果
-            cachedResult = RandomNumberGenerator.getGenerator().generate(100);
+            if (getSchwierigkeit() == 1) {
+                cachedResult = RandomNumberGenerator.getGenerator().generate(100);
+            } else if (getSchwierigkeit() == 2) {
+                cachedResult = RandomNumberGenerator.getGenerator().generate(500);
+            } else if (getSchwierigkeit() == 3) {
+                cachedResult = RandomNumberGenerator.getGenerator().generate(1000);
+            }
         }
         return cachedResult;
     }
