@@ -106,6 +106,7 @@ public class GuessTheNumber {
                 } else {
                     System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 }
+                flag = false;
                 break;
             }
             if (eingabe < target) {
