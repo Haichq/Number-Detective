@@ -89,7 +89,7 @@ public class GuessTheNumber {
     private void Spielablauf() {
         boolean flag = true;
         while (flag) {
-            System.out.println("(" + getVersuch() + "/8) Enter your guess:");
+            System.out.println("(" + getVersuch() + "/" +max_versuch +") Enter your guess:");
             int eingabe = scanner.nextInt();
             //判断 TODO
             if (eingabe != result() && getVersuch() == max_versuch) {
