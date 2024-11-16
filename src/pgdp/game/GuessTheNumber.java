@@ -71,6 +71,11 @@ public class GuessTheNumber {
                 input = scanner.nextInt();
             }
             setSchwierigkeit(input); // 更新难度
+            max_versuch = switch (getSchwierigkeit()) {
+                case 1 -> 8;
+                case 2, 3 -> 10;
+                default -> -1;
+            };
         }
 
         /*
@@ -98,11 +103,9 @@ public class GuessTheNumber {
             }
             if (eingabe < result()) {
                 System.out.println("The number is higher.");
-                System.out.println(result());
                 versuch++;
             } else if (eingabe > result()) {
                 System.out.println("The number is lower.");
-                System.out.println(result());
                 versuch++;
             } else { //eingabe == gesuchte Zahl
                 System.out.println("Congrats! You guessed the correct number.");
