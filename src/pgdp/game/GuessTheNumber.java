@@ -58,7 +58,7 @@ public class GuessTheNumber {
             default -> -1;
         };
 
-        while (getSchwierigkeit() != 4) {
+        while (getSchwierigkeit() != 4 && getLeben()>0) {
             versuch = 1; // 初始化尝试次数
             cache = -1;
             Spielablauf(); // 调用逻辑
