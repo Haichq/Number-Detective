@@ -92,11 +92,11 @@ public class GuessTheNumber {
             System.out.println("(" + getVersuch() + "/" +max_versuch +") Enter your guess:");
             int eingabe = scanner.nextInt();
             //判断 TODO
-            if (eingabe != result() && getVersuch() == max_versuch) {
+            if (eingabe != result() && getVersuch() == max_versuch && leben > 0) {
                 System.out.println("Sorry, you've used all attempts. The correct number was " + result() + ".");
                 System.out.println("You are leaving with " + getPoint() + " points!");
                 leben--;
-                if (leben < 0) {
+                if (leben == 0) {
                     System.out.println("Game over! You are out of lives.");
                 }
                 break;
