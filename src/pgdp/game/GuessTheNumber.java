@@ -10,8 +10,9 @@ public class GuessTheNumber {
     static int versuch = 1;
     static int point = 0;
     Scanner scanner = new Scanner(System.in);
-    static int schwierigkeit;
-    static int cachedResult = -1;
+    static int schwierigkeit = -1;
+    static int cache = -1;
+    int max_versuch = -1;
 
     public static int getLeben() {
         return leben;
@@ -45,66 +46,75 @@ public class GuessTheNumber {
         System.out.println("Hello, Number Detective!");
         System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
         printMenu();
-        int schwierigkeit = scanner.nextInt();
-        while (schwierigkeit < 1 || schwierigkeit > 4) {  //invalide option
+        int input = scanner.nextInt();
+        while (input < 1 || input > 4) {  //invalide option
             System.out.println("This was not a valid choice, please try again.");
-            schwierigkeit = scanner.nextInt();
+            input = scanner.nextInt();
         }
-        while (schwierigkeit != 4) {
-            //init
-            versuch = 1;
-            Spielablauf(schwierigkeit);
+        setSchwierigkeit(input);
+        max_versuch = switch (getSchwierigkeit()) {
+            case 1 -> 8;
+            case 2, 3 -> 10;
+            default -> -1;
+        };
+
+        while (getSchwierigkeit() != 4) {
+            versuch = 1; // 初始化尝试次数
+            Spielablauf(); // 调用逻辑
+
+            // 再次显示菜单并读取用户选择
             printMenu();
-            schwierigkeit = scanner.nextInt();
-            // new round:
-            result();
+            cache = -1;
+            input = scanner.nextInt();
+            while (input < 1 || input > 4) {
+                System.out.println("This was not a valid choice, please try again.");
+                input = scanner.nextInt();
+            }
+            setSchwierigkeit(input); // 更新难度
         }
 
         /*
         Sobald das Spiel endet, entweder durch das Verlassen des Spiels oder durch das Aufbrauchen aller Leben,
         wird dem Spieler sein finaler Punktestand angezeigt: "You⎵are⎵leaving⎵with⎵<Punktestand>⎵points!"
          */
-        if (schwierigkeit == 4) { //verlassen
-            System.out.println("Goodbye!");
-        } else { // das Aufbrauchen aller Leben TODO
-
-        }
+        System.out.println("Goodbye!");
         System.out.println("You are leaving with " + getPoint() + " points!");
     }
 
-    private void Spielablauf(int schwierigkeit) {
-
+    private void Spielablauf() {
         boolean flag = true;
-        int max_versuch = switch (schwierigkeit) {
-            case 1 -> 8;
-            case 2, 3 -> 10;
-            default -> -1;
-        };
-
         while (flag) {
             System.out.println("(" + getVersuch() + "/8) Enter your guess:");
             int eingabe = scanner.nextInt();
-
             //判断 TODO
+            if (eingabe != result() && getVersuch() == max_versuch) {
+                System.out.println("Sorry, you've used all attempts. The correct number was " + result() + ".");
+                System.out.println("You are leaving with " + getPoint() + " points!");
+                leben--;
+                if (leben < 0) {
+                    System.out.println("Game over! You are out of lives.");
+                }
+                break;
+            }
             if (eingabe < result()) {
                 System.out.println("The number is higher.");
                 System.out.println(result());
                 versuch++;
             } else if (eingabe > result()) {
                 System.out.println("The number is lower.");
+                System.out.println(result());
                 versuch++;
             } else { //eingabe == gesuchte Zahl
                 System.out.println("Congrats! You guessed the correct number.");
                 flag = false;
                 int currentPoint = getPoint();
-                point = switch (schwierigkeit) {
+                point = switch (getSchwierigkeit()) {
                     case 1, 2 -> currentPoint + 200;
                     case 3 -> currentPoint + 500;
                     default -> 0;
                 };
                 setPoint(point);
-
-                leben = switch (schwierigkeit) {
+                leben = switch (getSchwierigkeit()) {
                     case 2 -> leben + 1;
                     case 3 -> leben + 3;
                     default -> getLeben();
@@ -113,15 +123,7 @@ public class GuessTheNumber {
                 System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 break;
             }
-
-
-            if (versuch == max_versuch && versuch != result()) {
-                System.out.println("Sorry, you've used all attempts. The correct number was " + result() + ".");
-                leben--;
-                if (leben < 0) {
-                    System.out.println("Game over! You are out of lives.");
-                }
-            } else if (versuch == max_versuch - 1 && getPoint() > 600) {
+            if (versuch == max_versuch && getPoint() > 600) {
                 lastTry();
             }
         }
@@ -152,26 +154,29 @@ Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
             } else {
                 System.out.println("The number is odd!");
             }
-            versuch++;
         } else {
-
         }
-
-
     }
 
     private static int result() {
-
-        if (cachedResult == -1) { // 如果尚未生成结果
+        if (cache == -1) {
             if (getSchwierigkeit() == 1) {
-                cachedResult = RandomNumberGenerator.getGenerator().generate(100);
+                cache = RandomNumberGenerator.getGenerator().generate(100);
+                System.out.print("level: 1 " + cache);
+                return cache;
             } else if (getSchwierigkeit() == 2) {
-                cachedResult = RandomNumberGenerator.getGenerator().generate(500);
+                cache = RandomNumberGenerator.getGenerator().generate(500);
+                System.out.print("level: 2" + cache);
+                return cache;
+
             } else if (getSchwierigkeit() == 3) {
-                cachedResult = RandomNumberGenerator.getGenerator().generate(1000);
+                cache = RandomNumberGenerator.getGenerator().generate(1000);
+                System.out.print("level: 3" + cache);
+                return cache;
             }
         }
-        return cachedResult;
+
+        return cache;
     }
 
     // <==================================== HELPER METHODS ====================================>
@@ -186,8 +191,8 @@ Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
 
     public static void main(String[] args) {
         RandomNumberGenerator.getGenerator(1304);
-
-        System.out.println(result());
+        System.out.println("schwierigkeit: " + schwierigkeit);
+        System.out.println("result" + cache);
         new GuessTheNumber().guessTheNumber();
 
     }
