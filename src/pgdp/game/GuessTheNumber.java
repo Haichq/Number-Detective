@@ -148,13 +148,11 @@ Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
         }
         if (buyanswer == 1) {
             point -= 600;
-            // even or uneven TODO
             if (result() % 3 == 0) {
                 System.out.println("The number is even!");
             } else {
                 System.out.println("The number is odd!");
             }
-        } else {
         }
     }
 
@@ -162,16 +160,16 @@ Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
         if (cache == -1) {
             if (getSchwierigkeit() == 1) {
                 cache = RandomNumberGenerator.getGenerator().generate(100);
-                System.out.print("level: 1 " + cache);
+                //System.out.print("level: 1 " + cache);
                 return cache;
             } else if (getSchwierigkeit() == 2) {
                 cache = RandomNumberGenerator.getGenerator().generate(500);
-                System.out.print("level: 2" + cache);
+                //System.out.print("level: 2" + cache);
                 return cache;
 
             } else if (getSchwierigkeit() == 3) {
                 cache = RandomNumberGenerator.getGenerator().generate(1000);
-                System.out.print("level: 3" + cache);
+                //System.out.print("level: 3" + cache);
                 return cache;
             }
         }
@@ -191,8 +189,6 @@ Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
 
     public static void main(String[] args) {
         RandomNumberGenerator.getGenerator(1304);
-        System.out.println("schwierigkeit: " + schwierigkeit);
-        System.out.println("result" + cache);
         new GuessTheNumber().guessTheNumber();
 
     }
