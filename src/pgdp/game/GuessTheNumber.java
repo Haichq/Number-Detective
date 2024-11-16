@@ -51,7 +51,7 @@ public class GuessTheNumber {
         } else { // das Aufbrauchen aller Leben TODO
 
         }
-        System.out.println("You are leaving with <Punktestand> points!");
+        System.out.println("You are leaving with " + getPoint() + "points!");
     }
 
     private void Spielablauf() {
