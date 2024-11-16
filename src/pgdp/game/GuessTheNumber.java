@@ -129,22 +129,22 @@ public class GuessTheNumber {
                 System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 break;
             }
-            if (versuch == max_versuch && getPoint() > 600) {
-                lastTry();
+            if (versuch == max_versuch) {
+                if (getPoint() >= 600) {
+                    lastTry(); // 处理最后一次尝试
+                } else {
+                    System.out.println("Sorry, you've used all attempts. The correct number was " + result() + ".");
+                    leben--;
+                    if (leben <= 0) {
+                        System.out.println("Game over! You are out of lives.");
+                        break;
+                    }
+                }
             }
         }
     }
 
     private void lastTry() {
-/*
-Sollte der Spieler im letzten Versuch angekommen sein, hat er, sofern er genügend Punkte hat, die Möglichkeit,
-für 600 Punkte einen speziellen Hinweis zu kaufen, der ihm verrät, ob die gesuchte Zahl gerade oder ungerade ist.
-Vor dem letzten Versuch wird der Spieler gefragt: "LAST⎵ATTEMPT!⎵Do⎵you⎵want⎵to⎵buy⎵a⎵hint⎵for⎵600⎵points?⎵(1)⎵yes⎵(2)⎵no".
-Sollte der Spieler eine andere Eingabe machen, wird ihm die Fehlermeldung "This⎵was⎵not⎵a⎵valid⎵choice,⎵please⎵try⎵again." angezeigt,
-und das Programm wartet auf eine gültige Eingabe. Wenn der Spieler den Hinweis kauft,
-wird eine der folgenden Meldungen ausgegeben: "The⎵number⎵is⎵even!" oder "The⎵number⎵is⎵odd!".
-Dann wird der Spieler aufgefordert, seine letzte Schätzung abzugeben.
- */
         System.out.println("LAST ATTEMPT! Do you want to buy a hint for 600 points? (1) yes (2) no");
         Scanner sc = new Scanner(System.in);
         int buyanswer = sc.nextInt();
