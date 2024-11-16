@@ -98,6 +98,9 @@ public class GuessTheNumber {
                 leben--;
                 if (leben == 0) {
                     System.out.println("Game over! You are out of lives.");
+                } else {
+                    System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
+
                 }
                 break;
             }
