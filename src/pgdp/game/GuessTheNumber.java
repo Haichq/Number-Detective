@@ -176,8 +176,6 @@ public class GuessTheNumber {
             } else {
                 System.out.println("The number is odd!");
             }
-        } else {
-            System.out.println("No hint purchased.");
         }
     }
 
