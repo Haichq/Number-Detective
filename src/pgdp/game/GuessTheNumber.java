@@ -6,12 +6,12 @@ import pgdp.RandomNumberGenerator;
 import java.util.Scanner;
 
 public class GuessTheNumber {
-     int leben = 3;
+    int leben = 3;
     int versuch = 1;
-     int point = 0;
+    int point = 0;
     Scanner scanner = new Scanner(System.in);
-     int schwierigkeit = -1;
-     int cache = -1;
+    int schwierigkeit = -1;
+    int cache = -1;
     int max_versuch = -1;
 
     public int getCache() {
@@ -95,7 +95,7 @@ public class GuessTheNumber {
         Sobald das Spiel endet, entweder durch das Verlassen des Spiels oder durch das Aufbrauchen aller Leben,
         wird dem Spieler sein finaler Punktestand angezeigt: "You⎵are⎵leaving⎵with⎵<Punktestand>⎵points!"
          */
-        if (getSchwierigkeit() == 4){
+        if (getSchwierigkeit() == 4) {
             System.out.println("Goodbye!");
         }
 
@@ -106,23 +106,28 @@ public class GuessTheNumber {
         boolean flag = true;
         int target = result();
         while (flag) {
+
+            System.out.println("(" + getVersuch() + "/" + max_versuch + ") Enter your guess:");
+            int eingabe = scanner.nextInt();
             if (versuch == max_versuch && getPoint() >= 600) {
                 lastTry();
             }
-            System.out.println("(" + getVersuch() + "/" + max_versuch + ") Enter your guess:");
-            int eingabe = scanner.nextInt();
-
             //判断 TODO
-            if (eingabe != target && getVersuch() == max_versuch) {
-                System.out.println("Sorry, you've used all attempts. The correct number was " + target + ".");
-                leben--;
-                if (leben <= 0 || getPoint() < 0) {
-                    System.out.println("Game over! You are out of lives.");
-                    break;
-                } else {
-                    System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
+            if (getVersuch() == max_versuch) {
+                if (getPoint() >= 600) {
+                    lastTry();
                 }
-                flag = false;
+                if (eingabe != target) {
+                    System.out.println("Sorry, you've used all attempts. The correct number was " + target + ".");
+                    leben--;
+                    if (leben <= 0 || getPoint() < 0) {
+                        System.out.println("Game over! You are out of lives.");
+                        break;
+                    } else {
+                        System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
+                    }
+                    flag = false;
+                }
             } else if (getVersuch() != max_versuch) {
                 if (eingabe < target) {
                     System.out.println("The number is higher.");
@@ -177,7 +182,7 @@ public class GuessTheNumber {
         }
     }
 
-    private  int result() {
+    private int result() {
         if (getCache() == -1) {
             if (getSchwierigkeit() == 1) {
                 setCache(RandomNumberGenerator.getGenerator().generate(100));
