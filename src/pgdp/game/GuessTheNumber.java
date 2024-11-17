@@ -109,14 +109,9 @@ public class GuessTheNumber {
 
             System.out.println("(" + getVersuch() + "/" + max_versuch + ") Enter your guess:");
             int eingabe = scanner.nextInt();
-            if (versuch == max_versuch && getPoint() >= 600) {
-                lastTry();
-            }
+
             //判断 TODO
-            if (getVersuch() == max_versuch) {
-                if (getPoint() >= 600) {
-                    lastTry();
-                }
+            if (getVersuch() == max_versuch ) {
                 if (eingabe != target) {
                     System.out.println("Sorry, you've used all attempts. The correct number was " + target + ".");
                     leben--;
@@ -128,7 +123,7 @@ public class GuessTheNumber {
                     }
                     flag = false;
                 }
-            } else if (getVersuch() != max_versuch) {
+            } //else if (getVersuch() != max_versuch) {
                 if (eingabe < target) {
                     System.out.println("The number is higher.");
                     versuch++;
@@ -156,8 +151,12 @@ public class GuessTheNumber {
                     setLeben(leben);
                     System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 }
+           // }
+            if (getVersuch() == max_versuch) {
+                if (getPoint() >= 600) {
+                    lastTry();
+                }
             }
-
         }
     }
 
