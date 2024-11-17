@@ -94,7 +94,6 @@ public class GuessTheNumber {
         boolean flag = true;
         int target = result();
         while (flag) {
-
                 System.out.println("(" + getVersuch() + "/" + max_versuch + ") Enter your guess:");
                 int eingabe = scanner.nextInt();
 
@@ -110,7 +109,7 @@ public class GuessTheNumber {
                         System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                     }
                 }
-                if (getVersuch() < max_versuch) {
+
                     if (eingabe < target) {
                         System.out.println("The number is higher.");
                         versuch++;
@@ -137,9 +136,9 @@ public class GuessTheNumber {
                         };
                         setLeben(leben);
                         System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
-                        break;
+
                     }
-                }
+
                 if (versuch == max_versuch && getPoint() > 600) {
                     lastTry();
                 }
