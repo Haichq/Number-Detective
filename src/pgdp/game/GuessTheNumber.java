@@ -150,7 +150,7 @@ public class GuessTheNumber {
                     System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 }
             }
-            if (versuch == max_versuch && getPoint() > 600) {
+            if (versuch == max_versuch && getPoint() >= 600) {
                 lastTry();
             }
         }
