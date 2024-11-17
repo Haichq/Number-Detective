@@ -95,7 +95,10 @@ public class GuessTheNumber {
         Sobald das Spiel endet, entweder durch das Verlassen des Spiels oder durch das Aufbrauchen aller Leben,
         wird dem Spieler sein finaler Punktestand angezeigt: "You⎵are⎵leaving⎵with⎵<Punktestand>⎵points!"
          */
-        System.out.println("Goodbye!");
+        if (getSchwierigkeit() == 4){
+            System.out.println("Goodbye!");
+        }
+
         System.out.println("You are leaving with " + getPoint() + " points!");
     }
 
