@@ -100,9 +100,8 @@ public class GuessTheNumber {
             if (eingabe != target && getVersuch() == max_versuch) {
                 System.out.println("Sorry, you've used all attempts. The correct number was " + target + ".");
                 leben--;
-                if (leben == 0 || getPoint() < 0) {
+                if (leben <= 0 || getPoint() < 0) {
                     System.out.println("Game over! You are out of lives.");
-                    break;
                 } else {
                     System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 }
