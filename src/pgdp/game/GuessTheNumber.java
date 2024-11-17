@@ -64,7 +64,7 @@ public class GuessTheNumber {
             Spielablauf(); // 调用逻辑
 
             // 再次显示菜单并读取用户选择
-            if (getLeben() > 0 && getVersuch() !=max_versuch) {
+            if (getLeben() > 0) {
                 printMenu();
 
                 input = scanner.nextInt();
@@ -93,6 +93,7 @@ public class GuessTheNumber {
         boolean flag = true;
         int target = result();
         while (flag) {
+
             System.out.println("(" + getVersuch() + "/" + max_versuch + ") Enter your guess:");
             int eingabe = scanner.nextInt();
 
