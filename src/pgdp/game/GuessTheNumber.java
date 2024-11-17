@@ -79,7 +79,6 @@ public class GuessTheNumber {
                     default -> -1;
                 };
             }
-
         }
 
         /*
@@ -94,54 +93,55 @@ public class GuessTheNumber {
         boolean flag = true;
         int target = result();
         while (flag) {
-                System.out.println("(" + getVersuch() + "/" + max_versuch + ") Enter your guess:");
-                int eingabe = scanner.nextInt();
+            System.out.println("(" + getVersuch() + "/" + max_versuch + ") Enter your guess:");
+            int eingabe = scanner.nextInt();
 
-                //判断 TODO
-                if (eingabe != target && getVersuch() == max_versuch) {
-                    System.out.println("Sorry, you've used all attempts. The correct number was " + target + ".");
-                    //System.out.println("You are leaving with " + getPoint() + " points!");
-                    leben--;
-                    if (leben == 0 || getPoint() < 0) {
-                        System.out.println("Game over! You are out of lives.");
-                        break;
-                    } else {
-                        System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
-                    }
+            //判断 TODO
+            if (eingabe != target && getVersuch() == max_versuch) {
+                System.out.println("Sorry, you've used all attempts. The correct number was " + target + ".");
+                leben--;
+                if (leben == 0 || getPoint() < 0) {
+                    System.out.println("Game over! You are out of lives.");
+                    break;
+                } else {
+                    System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 }
+                flag = false;
+            }
+            if (getVersuch() != max_versuch) {
+                if (eingabe < target) {
+                    System.out.println("The number is higher.");
+                    versuch++;
+                } else if (eingabe > target) {
+                    System.out.println("The number is lower.");
+                    versuch++;
+                } else { //eingabe == gesuchte Zahl
+                    System.out.println("Congrats! You guessed the correct number.");
+                    flag = false;
+                    int currentPoint = getPoint();
+                    // 更新积分
+                    point += switch (getSchwierigkeit()) {
+                        case 1, 2 -> 200;
+                        case 3 -> 500;
+                        default -> 0;
+                    };
+                    setPoint(point);
 
-                    if (eingabe < target) {
-                        System.out.println("The number is higher.");
-                        versuch++;
-                    } else if (eingabe > target) {
-                        System.out.println("The number is lower.");
-                        versuch++;
-                    } else { //eingabe == gesuchte Zahl
-                        System.out.println("Congrats! You guessed the correct number.");
-                        flag = false;
-                        int currentPoint = getPoint();
-                        // 更新积分
-                        point += switch (getSchwierigkeit()) {
-                            case 1, 2 -> 200;
-                            case 3 -> 500;
-                            default -> 0;
-                        };
-                        setPoint(point);
+                    // 更新生命值
+                    leben += switch (getSchwierigkeit()) {
+                        case 2 -> 1;
+                        case 3 -> 3;
+                        default -> 0;
+                    };
+                    setLeben(leben);
+                    System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
 
-                        // 更新生命值
-                        leben += switch (getSchwierigkeit()) {
-                            case 2 -> 1;
-                            case 3 -> 3;
-                            default -> 0;
-                        };
-                        setLeben(leben);
-                        System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
-
-                    }
-
-                if (versuch == max_versuch && getPoint() > 600) {
-                    lastTry();
                 }
+            }
+
+            if (versuch == max_versuch && getPoint() > 600) {
+                lastTry();
+            }
 
         }
     }
