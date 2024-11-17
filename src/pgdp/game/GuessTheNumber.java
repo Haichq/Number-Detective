@@ -103,10 +103,11 @@ public class GuessTheNumber {
                 leben--;
                 if (leben <= 0 || getPoint() < 0) {
                     System.out.println("Game over! You are out of lives.");
+                    break;
                 } else {
                     System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 }
-                break;
+                flag = false;
             } else if (getVersuch() != max_versuch) {
                 if (eingabe < target) {
                     System.out.println("The number is higher.");
