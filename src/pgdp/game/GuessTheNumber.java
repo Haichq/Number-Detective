@@ -107,8 +107,7 @@ public class GuessTheNumber {
                     System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 }
                 flag = false;
-            }
-            if (getVersuch() != max_versuch) {
+            } else if (getVersuch() != max_versuch) {
                 if (eingabe < target) {
                     System.out.println("The number is higher.");
                     versuch++;
