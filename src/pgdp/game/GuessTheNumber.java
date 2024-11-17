@@ -6,40 +6,48 @@ import pgdp.RandomNumberGenerator;
 import java.util.Scanner;
 
 public class GuessTheNumber {
-    static int leben = 3;
-    static int versuch = 1;
-    static int point = 0;
+     int leben = 3;
+    int versuch = 1;
+     int point = 0;
     Scanner scanner = new Scanner(System.in);
-    static int schwierigkeit = -1;
-    static int cache = -1;
+     int schwierigkeit = -1;
+     int cache = -1;
     int max_versuch = -1;
 
-    public static int getLeben() {
+    public int getCache() {
+        return cache;
+    }
+
+    public void setCache(int cache) {
+        this.cache = cache;
+    }
+
+    public int getLeben() {
         return leben;
     }
 
-    public static int getVersuch() {
+    public int getVersuch() {
         return versuch;
     }
 
-    public static int getPoint() {
+    public int getPoint() {
         return point;
     }
 
-    public static void setPoint(int point) {
-        GuessTheNumber.point = point;
+    public void setLeben(int leben) {
+        this.leben = leben;
     }
 
-    public static void setLeben(int leben) {
-        GuessTheNumber.leben = leben;
+    public void setPoint(int point) {
+        this.point = point;
     }
 
-    public static int getSchwierigkeit() {
+    public void setSchwierigkeit(int schwierigkeit) {
+        this.schwierigkeit = schwierigkeit;
+    }
+
+    public int getSchwierigkeit() {
         return schwierigkeit;
-    }
-
-    public static void setSchwierigkeit(int schwierigkeit) {
-        GuessTheNumber.schwierigkeit = schwierigkeit;
     }
 
     public void guessTheNumber() {
@@ -166,21 +174,21 @@ public class GuessTheNumber {
         }
     }
 
-    private static int result() {
-        if (cache == -1) {
+    private  int result() {
+        if (getCache() == -1) {
             if (getSchwierigkeit() == 1) {
-                cache = RandomNumberGenerator.getGenerator().generate(100);
+                setCache(RandomNumberGenerator.getGenerator().generate(100));
                 //System.out.print("level: 1 " + cache);
-                return cache;
+                return getCache();
             } else if (getSchwierigkeit() == 2) {
-                cache = RandomNumberGenerator.getGenerator().generate(500);
+                setCache(RandomNumberGenerator.getGenerator().generate(500));
                 //System.out.print("level: 2" + cache);
-                return cache;
+                return getCache();
 
             } else if (getSchwierigkeit() == 3) {
-                cache = RandomNumberGenerator.getGenerator().generate(1000);
+                setCache(RandomNumberGenerator.getGenerator().generate(1000));
                 //System.out.print("level: 3" + cache);
-                return cache;
+                return getCache();
             }
         }
 
