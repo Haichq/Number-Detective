@@ -121,7 +121,7 @@ public class GuessTheNumber {
                     } else {
                         System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                     }
-                    flag = false;
+                   break;
                 }
             } //else if (getVersuch() != max_versuch) {
                 if (eingabe < target) {
