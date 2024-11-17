@@ -64,7 +64,7 @@ public class GuessTheNumber {
             Spielablauf(); // 调用逻辑
 
             // 再次显示菜单并读取用户选择
-            if (getLeben() != 0) {
+            if (getLeben() > 0 && getVersuch() !=max_versuch) {
                 printMenu();
 
                 input = scanner.nextInt();
@@ -105,7 +105,7 @@ public class GuessTheNumber {
                 } else {
                     System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
                 }
-                flag = false;
+                break;
             } else if (getVersuch() != max_versuch) {
                 if (eingabe < target) {
                     System.out.println("The number is higher.");
@@ -133,14 +133,11 @@ public class GuessTheNumber {
                     };
                     setLeben(leben);
                     System.out.println("You have " + getLeben() + " lives and " + getPoint() + " points.");
-
                 }
             }
-
             if (versuch == max_versuch && getPoint() > 600) {
                 lastTry();
             }
-
         }
     }
 
